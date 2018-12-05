@@ -1,0 +1,5 @@
+package bingxing
+
+func Aaa(){
+	
+}
