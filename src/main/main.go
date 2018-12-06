@@ -11,5 +11,5 @@ func main(){
 	//base.Init()
 	//typeDemo.Init()
 	//i_f.Init()
-	bingxing.Aaa()
+	bingxing.Init()
 }
