@@ -9,9 +9,11 @@ import (
 func route() {
 	//web服务 中间件
 	middleware()
-
-	//web服务 路由配置
+	//首页
 	http.HandleFunc("/", handler)
+	// 表单界面
+	http.HandleFunc("/login", loginHandle)
+
 	// http.HandleFunc("/count", counter)
 
 	// 启动服务
