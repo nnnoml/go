@@ -14,6 +14,9 @@ func route() {
 	// 表单界面
 	http.HandleFunc("/login", loginHandle)
 
+	// 表单界面
+	http.HandleFunc("/upload", uploadHandle)
+
 	// http.HandleFunc("/count", counter)
 
 	// 启动服务

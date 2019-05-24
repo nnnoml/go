@@ -3,7 +3,9 @@ package webServer
 import (
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -39,5 +41,28 @@ func loginHandle(w http.ResponseWriter, r *http.Request) {
 				fmt.Fprintln(w, "bigger than 100")
 			}
 		}
+	}
+}
+func uploadHandle(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("method:", r.Method) //获取请求的方法
+	if r.Method == "GET" {
+		t, _ := template.ParseFiles("../demo/webServer/temp/upload.html")
+		t.Execute(w, nil)
+	} else {
+		r.ParseMultipartForm(32 << 20)
+		file, handler, err := r.FormFile("uploadfile")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+		fmt.Fprintf(w, "%v", handler.Header)
+		f, err := os.OpenFile("../demo/test/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666) // 此处假设当前目录下已存在test目录
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer f.Close()
+		io.Copy(f, file)
 	}
 }
